@@ -3,6 +3,8 @@ import request from 'supertest'
 import { app } from '../../../app'
 import { mockedUser, mockedUserWithInvalidName, mockedUserWithInvalidPassword } from '../../mocks'
 
+export let token: string 
+
 describe('/session (e2e)', () => {
     const prisma = new PrismaClient()
 
@@ -48,15 +50,16 @@ describe('/session (e2e)', () => {
     describe('POST ---> session/login', () => {
         it('Should be able to login', async () => {
             const response = await request(app).post('/session/login').send(mockedUser)
-
-            expect(response.status).toBe(201)
+            token = response.body.token
+            
+            expect(response.status).toBe(200)
             expect(response.body).toHaveProperty('token')
         })
 
         it('Should not be able to login with invalid username', async () => {
             const response = await request(app).post('/session/login').send(mockedUserWithInvalidName)
 
-            expect(response.status).toBe(400)
+            expect(response.status).toBe(403)
             expect(response.body).toHaveProperty('statusCode')
             expect(response.body).toHaveProperty('message')
         })
@@ -64,7 +67,7 @@ describe('/session (e2e)', () => {
         it('Should not be able to login with invalid password', async () => {
             const response = await request(app).post('/session/login').send(mockedUserWithInvalidPassword)
 
-            expect(response.status).toBe(400)
+            expect(response.status).toBe(403)
             expect(response.body).toHaveProperty('statusCode')
             expect(response.body).toHaveProperty('message')
         })

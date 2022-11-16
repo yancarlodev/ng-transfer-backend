@@ -9,3 +9,8 @@ export interface IRegisterResponse {
     password?: string,
     accountId: string
 }
+
+export interface ILoginRequest {
+    username: string,
+    password: string
+}
