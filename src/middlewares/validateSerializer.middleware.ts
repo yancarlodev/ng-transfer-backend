@@ -1,7 +1,8 @@
 import { SchemaOf } from 'yup'
 import { Request, Response, NextFunction } from 'express'
+import { ILoginRequest, IRegisterRequest } from '../interfaces/session.interfaces'
 
-const validateSerializer = (serializer: SchemaOf<any>) => async (req: Request, res: Response, next: NextFunction) => {
+const validateSerializer = (serializer: SchemaOf<IRegisterRequest | ILoginRequest>) => async (req: Request, res: Response, next: NextFunction) => {
     try {
         const validatedBody = await serializer.validate(req.body, {
             stripUnknown: true,
@@ -12,7 +13,8 @@ const validateSerializer = (serializer: SchemaOf<any>) => async (req: Request, r
 
         return next()
     } catch (error: any) {
-        return res.status(error.statusCode).json({
+        return res.status(400).json({
+            statusCode: 400,
             message: error.errors.join(', ')
         })
     }
