@@ -1,10 +1,14 @@
-import { PrismaClient } from '@prisma/client'
-import express from 'express'
+import 'express-async-errors'
 import 'dotenv/config'
+import express from 'express'
+import { PrismaClient } from '@prisma/client'
+import handleErrorsMiddleware from './middlewares/handleErrors.middleware'
 
-const prisma = new PrismaClient()
+export const prisma = new PrismaClient()
 const app = express()
 app.use(express.json())
+
+app.use(handleErrorsMiddleware)
 
 const port = process.env.PORT || 3000
 
