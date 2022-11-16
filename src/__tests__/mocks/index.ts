@@ -1,16 +1,16 @@
 import { IRegisterRequest } from "../../interfaces/session.interfaces"
 
-export const mockedUserRegister : IRegisterRequest = {
+export const mockedUser : IRegisterRequest = {
     username: "Matheus Lima",
     password: "Teste123"
 }
 
-export const mockedUserRegisterWithInvalidName : IRegisterRequest = {
+export const mockedUserWithInvalidName : IRegisterRequest = {
     username: "Ma",
     password: "teste"
 }
 
-export const mockedUserRegisterWithInvalidPassword : IRegisterRequest = {
+export const mockedUserWithInvalidPassword : IRegisterRequest = {
     username: "Matheus Lima",
     password: "teste"
 }
