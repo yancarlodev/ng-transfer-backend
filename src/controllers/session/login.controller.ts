@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ILoginRequest } from "../../interfaces/session.interfaces";
+import { ILoginRequest } from "../../interfaces/session.interface";
 import loginService from "../../services/session/login.service";
 
 export default async function loginController(req: Request, res: Response) {

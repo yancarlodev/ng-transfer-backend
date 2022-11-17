@@ -1,4 +1,4 @@
-import { IRegisterRequest } from "../../interfaces/session.interfaces"
+import { IRegisterRequest } from "../../interfaces/session.interface"
 
 export const mockedUser : IRegisterRequest = {
     username: "Matheus Lima",

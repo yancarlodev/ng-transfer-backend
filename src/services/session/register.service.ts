@@ -1,7 +1,7 @@
 import { hashSync } from "bcryptjs";
 import { prisma } from "../../app";
 import AppError from "../../errors/AppError";
-import { IRegisterRequest, IRegisterResponse } from "../../interfaces/session.interfaces";
+import { IRegisterRequest, IRegisterResponse } from "../../interfaces/session.interface";
 
 export default async function registerService(registerData: IRegisterRequest): Promise<IRegisterResponse> {
     const userAlreadyExists = await prisma.users.findFirst({

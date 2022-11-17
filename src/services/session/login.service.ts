@@ -1,7 +1,7 @@
 import { compareSync } from "bcryptjs";
 import { prisma } from "../../app";
 import AppError from "../../errors/AppError";
-import { ILoginRequest } from "../../interfaces/session.interfaces";
+import { ILoginRequest } from "../../interfaces/session.interface";
 import jwt from 'jsonwebtoken'
 
 export default async function loginService(loginData: ILoginRequest): Promise<string> {
