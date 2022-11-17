@@ -1,19 +1,19 @@
 import { PrismaClient } from '@prisma/client'
 import request from 'supertest'
 import { app } from '../../../app'
-import { mockedAlternativeUser, mockedUser, mockedUserWithInvalidName, mockedUserWithInvalidPassword } from '../../mocks'
-
-export let token: string 
+import { mockedAlternativeUser, mockedUser, mockedUserWithInvalidName, mockedUserWithInvalidPassword } from '../../mocks' 
 
 describe('Integration tests (e2e)', () => {
     const prisma = new PrismaClient()
+    let token: string
+    let alternativeUserToken: string
 
     afterAll(async () => {
         await prisma.$disconnect()
     })
 
     describe('/session', () => {
-        describe('POST ---> session/register', () => {
+        describe('POST ---> /session/register', () => {
             it('Should be able to register a user', async () => {
                 const response = await request(app).post('/session/register').send(mockedUser)
     
@@ -48,7 +48,7 @@ describe('Integration tests (e2e)', () => {
             })
         })
     
-        describe('POST ---> session/login', () => {
+        describe('POST ---> /session/login', () => {
             it('Should be able to login', async () => {
                 const response = await request(app).post('/session/login').send(mockedUser)
                 token = response.body.token
@@ -76,7 +76,7 @@ describe('Integration tests (e2e)', () => {
     })
 
     describe('/transaction', () => {
-        describe('GET ---> transaction/balance', () => {
+        describe('GET ---> /transaction/balance', () => {
             it('Should be able to get the balance value', async () => {
                 const response = await request(app).get('/transaction/balance').set('Authorization', `Bearer ${token}`)
     
@@ -101,11 +101,12 @@ describe('Integration tests (e2e)', () => {
             })
         })
 
-        describe('POST ---> transaction/cash-out', () => {
+        describe('POST ---> /transaction/cash-out', () => {
             it('Should be able to cash out', async () => {
                 await request(app).post('/session/register').send(mockedAlternativeUser)
                 const alternativeUser = await request(app).post('/session/login').send(mockedAlternativeUser)
-                const response = await request(app).post('/transaction/cash-out').send({ username: 'Matheus Lima', value: '50.00' }).set('Authorization', `Bearer ${alternativeUser.body.token}`)
+                alternativeUserToken = alternativeUser.body.token
+                const response = await request(app).post('/transaction/cash-out').send({ username: 'Matheus Lima', value: '50.00' }).set('Authorization', `Bearer ${alternativeUserToken}`)
     
                 expect(response.status).toBe(200)
                 expect(response.body).toHaveProperty('message')
@@ -114,7 +115,7 @@ describe('Integration tests (e2e)', () => {
 
                 expect(responseCashIn.body.balance).toBe('150.00')
 
-                const responseCashOut = await request(app).get('/transaction/balance').set('Authorization', `Bearer ${alternativeUser.body.token}`)
+                const responseCashOut = await request(app).get('/transaction/balance').set('Authorization', `Bearer ${alternativeUserToken}`)
 
                 expect(responseCashOut.body.balance).toBe('50.00')
             })
@@ -145,6 +146,82 @@ describe('Integration tests (e2e)', () => {
             
             it('Should not be able to cash out with invalid token', async () => {
                 const response = await request(app).post('/transaction/cash-out').send({ username: 'Matheus Lima', value: '50.00' }).set('Authorization', `Bearer invalidtoken`)
+    
+                expect(response.status).toBe(401)
+                expect(response.body).toHaveProperty('statusCode')
+                expect(response.body).toHaveProperty('message')
+            })
+        })
+
+        describe('GET ---> /transaction', () => {
+            it('Should be able to get transaction historic', async () => {
+                await request(app).post('/transaction/cash-out').send({ username: 'João Faria', value: '50.00' }).set('Authorization', `Bearer ${token}`)
+                await request(app).post('/transaction/cash-out').send({ username: 'João Faria', value: '50.00' }).set('Authorization', `Bearer ${token}`)
+
+                const response = await request(app).get('/transaction').set('Authorization', `Bearer ${token}`)
+    
+                expect(response.status).toBe(200)
+                expect(response.body).toHaveLength(3)
+                expect(response.body[0]).toHaveProperty('debitedAccountId')
+                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('value')
+                expect(response.body[0]).toHaveProperty('createdAt')
+            })
+
+            it('Should be able to get transaction historic of cash-outs only', async () => {
+                const response = await request(app).get('/transaction/?cash-outs-only').set('Authorization', `Bearer ${token}`)
+    
+                expect(response.status).toBe(200)
+                expect(response.body).toHaveLength(2)
+                expect(response.body[0]).toHaveProperty('debitedAccountId')
+                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('value')
+                expect(response.body[0]).toHaveProperty('createdAt')
+            })
+
+            it('Should be able to get transaction historic of cash-ins only', async () => {
+                const response = await request(app).get('/transaction/?cash-ins-only').set('Authorization', `Bearer ${alternativeUserToken}`)
+    
+                expect(response.status).toBe(200)
+                expect(response.body).toHaveLength(2)
+                expect(response.body[0]).toHaveProperty('debitedAccountId')
+                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('value')
+                expect(response.body[0]).toHaveProperty('createdAt')
+            })
+
+            it('Should be able to get transaction historic ordered by date-time', async () => {
+                const response = await request(app).get('/transaction/?order-by-time').set('Authorization', `Bearer ${token}`)
+    
+                expect(response.status).toBe(200)
+                expect(response.body).toHaveLength(3)
+                expect(response.body[0]).toHaveProperty('debitedAccountId')
+                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('value')
+                expect(response.body[0]).toHaveProperty('createdAt')
+            })
+
+            it('Should be able to get transaction historic of cash-outs only and ordered by date-time', async () => {
+                const response = await request(app).get('/transaction/?cash-outs-only&order-by-time').set('Authorization', `Bearer ${token}`)
+    
+                expect(response.status).toBe(200)
+                expect(response.body).toHaveLength(2)
+                expect(response.body[0]).toHaveProperty('debitedAccountId')
+                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('value')
+                expect(response.body[0]).toHaveProperty('createdAt')
+            })
+
+            it('Should not be able to get transaction historic without token', async () => {
+                const response = await request(app).get('/transaction')
+    
+                expect(response.status).toBe(401)
+                expect(response.body).toHaveProperty('statusCode')
+                expect(response.body).toHaveProperty('message')
+            })
+
+            it('Should not be able to get transaction historic with invalid token', async () => {
+                const response = await request(app).get('/transaction').set('Authorization', `Bearer invalidtoken`)
     
                 expect(response.status).toBe(401)
                 expect(response.body).toHaveProperty('statusCode')
