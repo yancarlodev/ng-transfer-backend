@@ -6,7 +6,7 @@ declare global {
     namespace Express {
         interface Request {
             userId: string,
-            validatedBody: IRegisterRequest | ILoginRequest
+            validatedBody: IRegisterRequest | ILoginRequest | ICashOutRequest
         }
     }
 }
