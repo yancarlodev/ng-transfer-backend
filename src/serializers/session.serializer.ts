@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { ILoginRequest, IRegisterRequest } from '../interfaces/session.interfaces'
+import { ILoginRequest, IRegisterRequest } from '../interfaces/session.interface'
 
 export const registerSerializer: yup.SchemaOf<IRegisterRequest> = yup.object().shape({
     username: yup.string().min(3).required('Username is a required field'),
