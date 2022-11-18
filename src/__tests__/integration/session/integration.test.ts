@@ -6,7 +6,9 @@ import { mockedAlternativeUser, mockedUser, mockedUserWithInvalidName, mockedUse
 describe('Integration tests (e2e)', () => {
     const prisma = new PrismaClient()
     let token: string
+    let accountId: string
     let alternativeUserToken: string
+    let alternativeAccountId: string
 
     afterAll(async () => {
         await prisma.$disconnect()
@@ -16,6 +18,7 @@ describe('Integration tests (e2e)', () => {
         describe('POST ---> /session/register', () => {
             it('Should be able to register a user', async () => {
                 const response = await request(app).post('/session/register').send(mockedUser)
+                accountId = response.body.accountId
     
                 expect(response.status).toBe(201)
                 expect(response.body).toHaveProperty('id')
@@ -103,9 +106,12 @@ describe('Integration tests (e2e)', () => {
 
         describe('POST ---> /transaction/cash-out', () => {
             it('Should be able to cash out', async () => {
-                await request(app).post('/session/register').send(mockedAlternativeUser)
+                const alternativeUserRegister = await request(app).post('/session/register').send(mockedAlternativeUser)
+                alternativeAccountId = alternativeUserRegister.body.accountId
+
                 const alternativeUser = await request(app).post('/session/login').send(mockedAlternativeUser)
                 alternativeUserToken = alternativeUser.body.token
+
                 const response = await request(app).post('/transaction/cash-out').send({ username: 'Matheus Lima', value: '50.00' }).set('Authorization', `Bearer ${alternativeUserToken}`)
     
                 expect(response.status).toBe(200)
@@ -162,8 +168,8 @@ describe('Integration tests (e2e)', () => {
     
                 expect(response.status).toBe(200)
                 expect(response.body).toHaveLength(3)
-                expect(response.body[0]).toHaveProperty('debitedAccountId')
-                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('debitedAccountId', alternativeAccountId)
+                expect(response.body[0]).toHaveProperty('creditedAccountId', accountId)
                 expect(response.body[0]).toHaveProperty('value')
                 expect(response.body[0]).toHaveProperty('createdAt')
             })
@@ -173,8 +179,8 @@ describe('Integration tests (e2e)', () => {
     
                 expect(response.status).toBe(200)
                 expect(response.body).toHaveLength(2)
-                expect(response.body[0]).toHaveProperty('debitedAccountId')
-                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('debitedAccountId', accountId)
+                expect(response.body[0]).toHaveProperty('creditedAccountId', alternativeAccountId)
                 expect(response.body[0]).toHaveProperty('value')
                 expect(response.body[0]).toHaveProperty('createdAt')
             })
@@ -184,8 +190,8 @@ describe('Integration tests (e2e)', () => {
     
                 expect(response.status).toBe(200)
                 expect(response.body).toHaveLength(2)
-                expect(response.body[0]).toHaveProperty('debitedAccountId')
-                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('debitedAccountId', accountId)
+                expect(response.body[0]).toHaveProperty('creditedAccountId', alternativeAccountId)
                 expect(response.body[0]).toHaveProperty('value')
                 expect(response.body[0]).toHaveProperty('createdAt')
             })
@@ -195,8 +201,8 @@ describe('Integration tests (e2e)', () => {
     
                 expect(response.status).toBe(200)
                 expect(response.body).toHaveLength(3)
-                expect(response.body[0]).toHaveProperty('debitedAccountId')
-                expect(response.body[0]).toHaveProperty('creditedAccountId')
+                expect(response.body[0]).toHaveProperty('debitedAccountId', accountId)
+                expect(response.body[0]).toHaveProperty('creditedAccountId', alternativeAccountId)
                 expect(response.body[0]).toHaveProperty('value')
                 expect(response.body[0]).toHaveProperty('createdAt')
             })
