@@ -236,28 +236,68 @@ A reposta é uma lista de transações do usuário.
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "10.43",
-		"createdAt": "2022-11-18T12:07:27.441Z"
+		"createdAt": "2022-11-18T12:07:27.441Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
 		"id": "b17a5b49-a5cc-4cd6-b2a3-ef9612a75356",
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "5",
-		"createdAt": "2022-11-17T21:24:34.611Z"
+		"createdAt": "2022-11-17T21:24:34.611Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
 		"id": "4f521ae5-d934-4bfd-b635-3dbde41d7f67",
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "10",
-		"createdAt": "2022-11-17T21:20:12.243Z"
+		"createdAt": "2022-11-17T21:20:12.243Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
 		"id": "11144d42-ff38-4e9b-9b3f-cfd81bb38321",
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "50",
-		"createdAt": "2022-11-17T01:43:51.025Z"
+		"createdAt": "2022-11-17T01:43:51.025Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	}
 ]
 
@@ -271,25 +311,72 @@ A reposta é uma lista de transações do usuário.
 
 [
 	{
-		"id": "d20516cc-c10c-4a2f-9230-26ee440a25f7",
-		"debitedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
-		"creditedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
-		"value": "65",
-		"createdAt": "2022-11-17T21:38:48.427Z"
+		"id": "c9f284b1-5f14-4208-baca-a6f70a30bfc4",
+		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
+		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
+		"value": "10.43",
+		"createdAt": "2022-11-18T12:07:27.441Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
-		"id": "75860f4c-ae7b-4f15-89fb-b7dbbc82b68a",
-		"debitedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
-		"creditedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
-		"value": "65.43",
-		"createdAt": "2022-11-17T22:08:22.073Z"
+		"id": "b17a5b49-a5cc-4cd6-b2a3-ef9612a75356",
+		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
+		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
+		"value": "5",
+		"createdAt": "2022-11-17T21:24:34.611Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
-		"id": "22c26b33-a7d5-4315-9c42-228ce5d789e2",
-		"debitedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
-		"creditedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
-		"value": "0.43",
-		"createdAt": "2022-11-17T22:08:50.781Z"
+		"id": "4f521ae5-d934-4bfd-b635-3dbde41d7f67",
+		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
+		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
+		"value": "10",
+		"createdAt": "2022-11-17T21:20:12.243Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
+	},
+	{
+		"id": "11144d42-ff38-4e9b-9b3f-cfd81bb38321",
+		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
+		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
+		"value": "50",
+		"createdAt": "2022-11-17T01:43:51.025Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	}
 ]
 
@@ -307,49 +394,119 @@ A reposta é uma lista de transações do usuário.
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "50",
-		"createdAt": "2022-11-17T01:43:51.025Z"
+		"createdAt": "2022-11-17T01:43:51.025Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
 		"id": "4f521ae5-d934-4bfd-b635-3dbde41d7f67",
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "10",
-		"createdAt": "2022-11-17T21:20:12.243Z"
+		"createdAt": "2022-11-17T21:20:12.243Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
 		"id": "b17a5b49-a5cc-4cd6-b2a3-ef9612a75356",
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "5",
-		"createdAt": "2022-11-17T21:24:34.611Z"
+		"createdAt": "2022-11-17T21:24:34.611Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	},
 	{
 		"id": "d20516cc-c10c-4a2f-9230-26ee440a25f7",
 		"debitedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"creditedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"value": "65",
-		"createdAt": "2022-11-17T21:38:48.427Z"
+		"createdAt": "2022-11-17T21:38:48.427Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		}
 	},
 	{
 		"id": "75860f4c-ae7b-4f15-89fb-b7dbbc82b68a",
 		"debitedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"creditedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"value": "65.43",
-		"createdAt": "2022-11-17T22:08:22.073Z"
+		"createdAt": "2022-11-17T22:08:22.073Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		}
 	},
 	{
 		"id": "22c26b33-a7d5-4315-9c42-228ce5d789e2",
 		"debitedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"creditedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"value": "0.43",
-		"createdAt": "2022-11-17T22:08:50.781Z"
+		"createdAt": "2022-11-17T22:08:50.781Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		}
 	},
 	{
 		"id": "c9f284b1-5f14-4208-baca-a6f70a30bfc4",
 		"debitedAccountId": "6fb41862-9c66-4deb-a066-a23367f28d36",
 		"creditedAccountId": "03ab7668-32db-481d-87e4-3dbbb25f6831",
 		"value": "10.43",
-		"createdAt": "2022-11-18T12:07:27.441Z"
+		"createdAt": "2022-11-18T12:07:27.441Z",
+		"creditedAccount": {
+			"user": {
+				"username": "Matheus"
+			}
+		},
+		"debitedAccount": {
+			"user": {
+				"username": "Cleiton"
+			}
+		}
 	}
 ]
 
