@@ -19,7 +19,7 @@ export default async function loginService(loginData: ILoginRequest): Promise<st
         throw new AppError('Email or password invalid', 403)
     }
 
-    const token = jwt.sign({}, process.env.SECRET_KEY as string, { subject: user.id, expiresIn: '24h' })
+    const token = jwt.sign({ username }, process.env.SECRET_KEY as string, { subject: user.id, expiresIn: '24h' })
 
     return token
 }
