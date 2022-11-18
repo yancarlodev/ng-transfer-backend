@@ -15,12 +15,52 @@ export default async function getTransactionsService(id: string, queryParams: IQ
         transactions = await prisma.transactions.findMany({
             where: {
                 debitedAccountId: user?.accountId
+            },
+            include: {
+                creditedAccount: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                },
+                debitedAccount: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                }
             }
         })
     } else if(queryParams['cash-ins-only'] === '') {
         transactions = await prisma.transactions.findMany({
             where: {
                 creditedAccountId: user?.accountId
+            },
+            include: {
+                creditedAccount: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                },
+                debitedAccount: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                }
             }
         })
     } else {
@@ -34,6 +74,26 @@ export default async function getTransactionsService(id: string, queryParams: IQ
                             creditedAccountId: user?.accountId
                         },
                     ]
+            },
+            include: {
+                creditedAccount: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                },
+                debitedAccount: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                }
             }
         })
     }
