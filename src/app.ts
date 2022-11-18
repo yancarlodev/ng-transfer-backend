@@ -1,13 +1,16 @@
-import { PrismaClient } from '@prisma/client'
+import 'express-async-errors'
 import express from 'express'
-import 'dotenv/config'
+import { PrismaClient } from '@prisma/client'
+import handleErrorsMiddleware from './middlewares/handleErrors.middleware'
+import sessionRouter from './routes/session.routes'
+import transactionRouter from './routes/transaction.routes'
 
-const prisma = new PrismaClient()
-const app = express()
+
+export const prisma = new PrismaClient()
+export const app = express()
 app.use(express.json())
 
-const port = process.env.PORT || 3000
+app.use('/session', sessionRouter)
+app.use('/transaction', transactionRouter)
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}. Let's transform the financial lives of young people together!`)
-})
+app.use(handleErrorsMiddleware)
