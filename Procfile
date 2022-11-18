@@ -1,3 +1,3 @@
-web: npm run start:prod
+web: npm run start
 
 release: npx prisma migrate deploy
