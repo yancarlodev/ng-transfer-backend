@@ -52,8 +52,13 @@ PORT=3000
 # "postgresql://matheus:1234@localhost:5432/NGTransfer?schema=public" 
 DATABASE_URL="postgresql://<user>:<password>@localhost:5432/<database>?schema=public"
 
-# Por fim, configuramos a chave secreta que será utilizada pela aplicação, podendo ser qualquer valor
+# Aqui, configuramos a chave secreta que será utilizada pela aplicação, podendo ser qualquer valor
 SECRET_KEY=chavesecreta123
+
+# E por fim, as variáveis para o Docker, só é preciso colocar as mesmas informações que o "DATABASE_URL"
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DB=database
 
 ```
 
