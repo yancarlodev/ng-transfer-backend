@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: ngCash_app
+    build: ../ng-transfer-frontend
+    ports:
+      - 8080:8080
+    env_file: 
+      - docker.env
+    depends_on:
+      - "api"
+    command: bash -c "yarn dev"
+
+  api:
+    container_name: ngCash_api
+    build: .
+    ports:
+      - 3000:3000
+    env_file: 
+      - docker.env
+    depends_on:
+      database:
+        condition: service_healthy
+    command: bash -c "npx prisma migrate dev && yarn dev"
+    volumes:
+      - .:/api
+
+  database:
+    container_name: ngCash_database
+    image: postgres:latest
+    hostname: database
+    ports:
+      - 5432:5432
+    env_file: 
+      - docker.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
